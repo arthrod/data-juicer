@@ -15,12 +15,12 @@
 
 import json
 import os
-import xml.etree.ElementTree as ET
 from multiprocessing import Pool
 
 import fire
 from loguru import logger
 from tqdm import tqdm
+import defusedxml.ElementTree
 
 
 @logger.catch(reraise=True)
@@ -73,7 +73,7 @@ def get_parents(site, counts):
             # e.g., counts = 2: total=5 lines, 2,3 are data
             # last line is footer
             if i > 1 and i <= counts[os.path.basename(site)] + 1:
-                root = ET.fromstring(line)
+                root = defusedxml.ElementTree.fromstring(line)
                 if 'ParentId' in root.attrib:
                     # this is an answer
                     if root.attrib['ParentId'] not in parents:
@@ -108,7 +108,7 @@ def get_qapairs(site, counts, parents):
             # e.g., counts = 2: total=5 lines, 2,3 are data
             # last line is footer
             if i > 1 and i <= counts[os.path.basename(site)] + 1:
-                root = ET.fromstring(line)
+                root = defusedxml.ElementTree.fromstring(line)
                 if 'ParentId' not in root.attrib:
                     post_id = root.attrib['Id']
                     if post_id in parents:
