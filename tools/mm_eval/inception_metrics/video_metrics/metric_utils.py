@@ -23,6 +23,7 @@ from tools.mm_eval.inception_metrics.dataset import VideoDataset, VideoDatasetPe
 from tools.mm_eval.inception_metrics import distributed
 from torch.utils.data import DataLoader, Dataset, DistributedSampler
 from collections.abc import Iterator
+import fickling
 
 
 def random_seed(max_seed: int = 2**31 - 1) -> int:
@@ -91,7 +92,7 @@ def get_feature_detector(url, verbose=False):
 
         with open_url(url, verbose=(verbose and rank == 0)) as f:
             if urlparse(url).path.endswith('.pkl'):
-                _feature_detector_cache[key] = pickle.load(f).requires_grad_(False)
+                _feature_detector_cache[key] = fickling.load(f).requires_grad_(False)
             else:
                 _feature_detector_cache[key] = torch.jit.load(f)
 
@@ -213,7 +214,7 @@ class FeatureStats:
     @staticmethod
     def load(pkl_file):
         with open(pkl_file, 'rb') as f:
-            s = EasyDict(pickle.load(f))
+            s = EasyDict(fickling.load(f))
         obj = FeatureStats(capture_all=s.capture_all, max_items=s.max_items)
         obj.__dict__.update(s)
         return obj
