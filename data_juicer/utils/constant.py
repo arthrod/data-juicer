@@ -157,12 +157,12 @@ class StatsKeysMeta(type):
                         with dctx.stream_reader(compressed_file) as reader:
                             text_stream = io.TextIOWrapper(reader,
                                                            encoding='utf-8')
-                            first_line = text_stream.readline()
+                            first_line = text_stream.readline(5_000_000)
                 elif 'jsonl' in dj_cfg.dataset_path:
                     tmp_f_name = dj_cfg.dataset_path. \
                         replace('.jsonl', '.tmp.jsonl')
                     with open(dj_cfg.dataset_path, 'r') as orig_file:
-                        first_line = orig_file.readline()
+                        first_line = orig_file.readline(5_000_000)
 
                 assert tmp_f_name is not None and first_line is not None, \
                     'error when loading the first line, when ' \

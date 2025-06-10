@@ -38,7 +38,7 @@ def split_jsonl(file_path: str, max_size: float, output_dir: str):
 
             # Read lines until we reach the max buffer size
             while current_size + buffer_size < max_byte_size:
-                line = infile.readline()
+                line = infile.readline(5_000_000)
                 if not line:
                     break
                 buffer.append(line)

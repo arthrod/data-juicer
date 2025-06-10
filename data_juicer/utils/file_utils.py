@@ -36,7 +36,7 @@ async def follow_read(
             logfile.seek(0, 2)
 
         while True:
-            line = logfile.readline()
+            line = logfile.readline(5_000_000)
             if not line:
                 # no new line, wait to avoid CPU override
                 await asyncio.sleep(0.1)
