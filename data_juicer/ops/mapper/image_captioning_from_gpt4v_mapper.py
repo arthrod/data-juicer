@@ -63,7 +63,7 @@ def call_gpt_vision_api(api_key,
         temperature
     }
     try:
-        response = requests.post(api_url, headers=headers, json=data)
+        response = requests.post(api_url, headers=headers, json=data, timeout=60)
         response.raise_for_status()
         result = response.json()
 

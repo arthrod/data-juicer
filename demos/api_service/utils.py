@@ -25,9 +25,9 @@ def call_data_juicer_api(path: str,
     url = urljoin(DJ_BASE_URL, path)
 
     if json is not None:
-        response = requests.post(url, params=params, json=json)
+        response = requests.post(url, params=params, json=json, timeout=60)
     else:
-        response = requests.get(url, params=params)
+        response = requests.get(url, params=params, timeout=60)
 
     return jloads(response.text)
 
