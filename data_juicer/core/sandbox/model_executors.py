@@ -9,6 +9,7 @@ import time
 from jsonargparse import namespace_to_dict
 
 from data_juicer.utils.file_utils import follow_read
+from security import safe_command
 
 
 class BaseModelExecutor(object):
@@ -62,7 +63,7 @@ class BaseModelExecutor(object):
     def run_subprocess(self, script_path, run_args, working_dir, cmd='bash'):
         run_args = [str(arg) for arg in run_args]
         args = [cmd, script_path] + run_args
-        subprocess.run(args, cwd=working_dir)
+        safe_command.run(subprocess.run, args, cwd=working_dir)
 
     async def _run(self, run_type, run_obj=None, **kwargs):
         raise NotImplementedError
