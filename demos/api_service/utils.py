@@ -13,6 +13,7 @@ from agentscope.message import Msg
 from agentscope.service import ServiceToolkit
 from loguru import logger
 from PIL import Image
+from security import safe_requests
 
 DJ_BASE_URL = 'http://localhost:8000'
 DJ_CONFIG_TEMPLATE = './configs/dj_config_template.yaml'
@@ -27,7 +28,7 @@ def call_data_juicer_api(path: str,
     if json is not None:
         response = requests.post(url, params=params, json=json)
     else:
-        response = requests.get(url, params=params)
+        response = safe_requests.get(url, params=params)
 
     return jloads(response.text)
 
