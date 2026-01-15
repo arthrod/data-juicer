@@ -34,3 +34,4 @@ Pillow
 fastapi[standard]>=0.100
 httpx
 wordcloud
+urllib3>=2.6.3 # not directly required, pinned by Snyk to avoid a vulnerability
