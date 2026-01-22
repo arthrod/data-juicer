@@ -1,4 +1,4 @@
-torch>=1.11.0
+torch>=2.10.0
 fire
 pyspark
 # vbench-related
@@ -20,3 +20,5 @@ tensorboard
 diffusers==0.27.0
 transformers>=4.37.2
 func_timeout
+pyasn1>=0.6.2 # not directly required, pinned by Snyk to avoid a vulnerability
+wheel>=0.46.2 # not directly required, pinned by Snyk to avoid a vulnerability
